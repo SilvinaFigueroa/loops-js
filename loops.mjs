@@ -69,46 +69,146 @@
 // There will only be 4 cells per row.
 // There will be no escaped characters other than “\n”.
 
+// let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`;
+
+// let id = "";
+// let name = "";
+// let occupation = "";
+// let age = "";
+// let wordCount = 1;
+
+
+// for (let i = 0; i < csv.length; i++) {
+
+//     // print each row and reset variables
+//     if (csv[i] == "\n") {
+//         console.log(id, name, occupation, age)
+//         id = "";
+//         name = "";
+//         occupation = "";
+//         age = "";
+//         wordCount = 1;
+//     }
+//     // Add each letter to each word until find a comma
+//     if (csv[i] == ",") {
+//         wordCount++;
+//     }
+//     if (wordCount == 1) {
+//         id += csv[i];
+//     }
+//     if (wordCount == 2) {
+//         name += csv[i];
+//     }
+//     if (wordCount == 3) {
+//         occupation += csv[i];
+//     }
+//     if (wordCount == 4) {
+//         age += csv[i];
+//     }
+// }
+// // print last row 
+// console.log(id, name, occupation, age)
+
+
+// ____________________________________________________________________________________________________
+
+// Additional implementation: reset all the variables to zero!
+// User a switch statement instead if statements 
+// Replace loop for a "For Of type
+// Rename variables for better reusability (id, name, etc are specific to a use case)
+// Use string.length to print the last row (the string doesn't end with a /n)
+
+
+// let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`;
+
+// let cell1 = "";
+// let cell2 = "";
+// let cell3 = "";
+// let cell4 = "";
+// let countChar = "";
+// let word = ""
+
+// for (const char of csv) {
+//     countChar++;
+//     switch (char) {
+//         // for each comma, assign the char to the variable that is not empty 
+//         // each word is delimited by a comma, so we need to reset the word after each comma 
+//         case ",":
+//             if (!cell1) {
+//                 cell1 = word;
+//                 word = "";
+//             }
+//             else if (!cell2) {
+//                 cell2 = word;
+//                 word = "";
+//             }
+//             else if (!cell3) {
+//                 cell3 = word;
+//                 word = "";
+//             }
+//             break;
+
+//         case "\n":
+//             // /n delimit each row, so we print all the words and reset the whole row for the next line
+//             // assign cell 4 to word, since it's the last word of the row (there is no comma after the last word, so we need to use the /n)
+//             cell4 = word;
+//             word = "";
+//             console.log(cell1, cell2, cell3, cell4);
+//             cell1 = "";
+//             cell2 = "";
+//             cell3 = "";
+//             cell4 = "";
+//             break;
+//         default:
+//             word += char;
+//             break;
+
+//     }
+
+//     // if we reach the end of the string, we repeat the process of the /n row (last row of the string)
+//     if (countChar == csv.length) {
+//         cell4 = word;
+//         console.log(cell1, cell2, cell3, cell4);
+//         cell1 = "";
+//         cell2 = "";
+//         cell3 = "";
+//         cell4 = "";
+//     }
+
+// }
+
+
+// R-ALAB 308.4.1: 
+// Part 1: Refactoring Old Code
+// _________________________________________________________________
+
+
 let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`;
 
-let id = "";
-let name = "";
-let occupation = "";
-let age = "";
-let wordCount = 1;
+let row = "";
+let csvArray = [];
+let counter = 0;
 
+for (const char of csv) {
+    counter++;
+    // for each \n we have a new row, so each row will be an element of the array
+    if (char === "\n") {
+        counter++;
+        csvArray.push(row);
+        row = "";
+    }
+    else{
+        row += char;
+    }
 
-for (let i = 0; i < csv.length; i++) {
+    if (counter == csvArray.length){
+        csvArray.push(row);
+        row = "";
+    }
 
-    // print each row and reset variables
-    if (csv[i] == "\n") {
-        console.log(id, name, occupation, age)
-        id = "";
-        name = "";
-        occupation = "";
-        age = "";
-        wordCount = 1;
-    }
-    // Add each letter to each word until find a comma
-    if (csv[i] == ",") {
-        wordCount++;
-    }
-    if (wordCount == 1) {
-        id += csv[i];
-    }
-    if (wordCount == 2) {
-        name += csv[i];
-    }
-    if (wordCount == 3) {
-        occupation += csv[i];
-    }
-    if (wordCount == 4) {
-        age += csv[i];
-    }
 }
-// print last row 
-console.log(id, name, occupation, age)
 
+console.log(counter)
+console.log(csvArray.length)
 
-
-
+console.log(csvArray)
