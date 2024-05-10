@@ -64,7 +64,7 @@
 // When you encounter the “\r\n” sequence, move to the next “row.”
 // Log each row of data.
 // You do not need to format the data, the following works well.
-// console.log(cell1, cell2, cell3, cell4);
+// console.log(row1, cell2, row3, row4);
 // You can make the following assumptions:
 // There will only be 4 cells per row.
 // There will be no escaped characters other than “\n”.
@@ -182,33 +182,79 @@
 // Part 1: Refactoring Old Code
 // _________________________________________________________________
 
+// implementation without storing the rows/cells in a variable
+// Pros: lees code - Cons: it's not possible futher manupulation. 
+// _________________________________________________________________
 
-let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`;
 
-let row = "";
-let csvArray = [];
-let counter = 0;
+// let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`
 
-for (const char of csv) {
-    counter++;
-    // for each \n we have a new row, so each row will be an element of the array
-    if (char === "\n") {
-        counter++;
-        csvArray.push(row);
-        row = "";
-    }
-    else{
-        row += char;
-    }
+// // convert the string into an array. By passyng the delimited "\n" we can separate each row in a array element
+// let rows = csv.split("\n");
 
-    if (counter == csvArray.length){
-        csvArray.push(row);
-        row = "";
-    }
+// // output each element of the array 
+// for(const eachRow of rows){
+//         console.log(eachRow);
+// }
 
-}
 
-console.log(counter)
-console.log(csvArray.length)
+// Implementation storing the rows in a variable. Allows future data manipulation
+// _________________________________________________________________
 
-console.log(csvArray)
+
+// let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`
+
+// // convert the string into an array. By passyng the delimited "\n" we can separate each row in a array element
+// let rows = csv.split("\n");
+// let row1 = "";
+// let row2 = "";
+// let row3 = "";
+// let row4 = "";hard-coding four columns per row,
+
+// for (const eachRow of rows){
+//     if(!row1){
+//         row1 = eachRow;
+//         console.log(row1);
+//         row1 = ""
+//     }
+//     else if(!row2){
+//         row2 = eachRow;
+//         console.log(row2);
+//         row2 = ""
+//     }
+//     else if(!row3){
+//         row3 = eachRow;
+//         console.log(row3);
+//         row3 = ""
+//     }
+//     else {
+//         row4 = eachRow;
+//         console.log(row4);
+//         row4 = ""
+//     }
+    
+// }
+
+// Part 2: Expanding Functionality
+// _________________________________________________________________
+
+// Declare a variable that stores the number of columns in each row of data within the CSV.
+// Instead of  expand your code to accept any number of columns. 
+// This should be calculated dynamically based on the first row of data.
+
+// Store your results in a two-dimensional array.
+// Each row should be its own array, with individual entries for each column.
+// Each row should be stored in a parent array, with the heading row located at index 0.
+// Cache this two-dimensional array in a variable for later use.
+
+
+let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`
+// convert the string into an array. By passyng the delimited "\n" we can separate each row in a array element
+let rows = csv.split("\n");
+
+// calculate the amount of columns based on the first row of data. Commas delimite each colum
+// Index 0 or rows arrays is the first row, and the property length will tell us how many elements you have at that row (columns)
+
+let col = rows[0].split(",").length;
+console.log(col)
+
