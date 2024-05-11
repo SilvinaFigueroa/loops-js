@@ -183,7 +183,6 @@
 // _________________________________________________________________
 
 // implementation without storing the rows/cells in a variable
-// Pros: lees code - Cons: it's not possible futher manupulation. 
 // _________________________________________________________________
 
 
@@ -198,7 +197,7 @@
 // }
 
 
-// Implementation storing the rows in a variable. Allows future data manipulation
+// Implementation storing the rows in a variable.
 // _________________________________________________________________
 
 
@@ -209,7 +208,7 @@
 // let row1 = "";
 // let row2 = "";
 // let row3 = "";
-// let row4 = "";hard-coding four columns per row,
+// let row4 = ""; // hard-coding four columns per row,
 
 // for (const eachRow of rows){
 //     if(!row1){
@@ -248,13 +247,54 @@
 // Cache this two-dimensional array in a variable for later use.
 
 
-let csv = `Index,Mass (kg),Spring 1 (m),Spring 2 (m)\n1,0.00,0.050,0.050\n2,0.49,0.066,0.066\n3,0.98,0.087,0.080\n4,1.47,0.116,0.108\n5,1.96,0.142,0.138\n6,2.45,0.166,0.158\n7,2.94,0.193,0.174\n8,3.43,0.204,0.192\n9,3.92,0.226,0.205\n10,4.41,0.238,0.232`
+// let csv = `ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s Assistant,26`
+// // convert the string into an array. By passyng the delimited "\n" we can separate each row in a array element
+// let rows = csv.split("\n");
+
+// // calculate the amount of columns based on the first row of data. Commas delimite each colum
+// // Index 0 or rows arrays is the first row, and the property length will tell us how many elements you have at that row (columns)
+
+// // we take each element of the array and separate them by commas to check how many columns (words) we have per element (row)
+// let colNum = rows[0].split(",").length;
+// // console.log(col)
+
+// let table = [];
+
+// // create the one array per row with the colNum numnber of elements and push it into the table array
+// for(const i in rows){
+//     table.push(rows[i].split(","))
+// }
+
+// console.log(table)
+// console.log(table[0]);
+
+
+// Part 3: Transforming Data
+// _________________________________________________________________
+
+
+let csv = `ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s,26`
 // convert the string into an array. By passyng the delimited "\n" we can separate each row in a array element
 let rows = csv.split("\n");
 
-// calculate the amount of columns based on the first row of data. Commas delimite each colum
-// Index 0 or rows arrays is the first row, and the property length will tell us how many elements you have at that row (columns)
+let headings = (rows[0].split(","));
+let table = [];
+let rowObj = {};
 
-let col = rows[0].split(",").length;
-console.log(col)
+// Starting from row index 1 (after heading), transform each row into an object
+    for(let i = 1; i < rows.length; i++){
+        // rows elements as part of an array
+        let rowElements = rows[i].split(',');
 
+        // assigning the values to the object using dynamic property  
+
+        for (let j in rowElements){
+            // add each row element to the object with its heading 
+            rowObj[headings[j].toLowerCase()] = rowElements[j]
+        }
+        // add the object to the table
+        table.push(rowObj);
+        //clear the object for the next one
+        rowObj = {};
+    }
+    console.log(table)
