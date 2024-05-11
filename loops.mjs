@@ -231,7 +231,7 @@
 //         console.log(row4);
 //         row4 = ""
 //     }
-    
+
 // }
 
 // Part 2: Expanding Functionality
@@ -272,6 +272,11 @@
 // Part 3: Transforming Data
 // _________________________________________________________________
 
+// For each row of data in the result array produced by your code above, create an object where the key of 
+// each value is the heading for that value’s column.Convert these keys to all lowercase letters for consistency.
+// Store these objects in an array, in the order that they were originally listed.
+// Since the heading for each column will be stored in the object keys, you do not need to create an object for the heading row itself.
+
 
 let csv = `ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s,26`
 // convert the string into an array. By passyng the delimited "\n" we can separate each row in a array element
@@ -282,19 +287,67 @@ let table = [];
 let rowObj = {};
 
 // Starting from row index 1 (after heading), transform each row into an object
-    for(let i = 1; i < rows.length; i++){
-        // rows elements as part of an array
-        let rowElements = rows[i].split(',');
+for (let i = 1; i < rows.length; i++) {
+    // rows elements as part of an array
+    let rowElements = rows[i].split(',');
 
-        // assigning the values to the object using dynamic property  
+    // assigning the values to the object using dynamic property  
 
-        for (let j in rowElements){
-            // add each row element to the object with its heading 
-            rowObj[headings[j].toLowerCase()] = rowElements[j]
-        }
-        // add the object to the table
-        table.push(rowObj);
-        //clear the object for the next one
-        rowObj = {};
+    for (let j in rowElements) {
+        // add each row element to the object with its heading 
+        rowObj[headings[j].toLowerCase()] = rowElements[j]
     }
-    console.log(table)
+    // add the object to the table
+    table.push(rowObj);
+    //clear the object for the next one
+    rowObj = {};
+}
+console.log(table)
+
+
+//     Part 4: Sorting and Manipulating Data
+// Using array methods, accomplish the following tasks, in order upon the result of Part 3:
+// _________________________________________________________________
+
+// Remove the last element from the sorted array.
+
+// checking if the table is sorted
+// console.log(table)
+// console.log(table.sort)
+
+// table.pop();
+// console.log(table);
+
+// Insert the following object at index 1:
+// { id: "48", name: "Barry", occupation: "Runner", age: "25" }
+
+// Splice method = start at index, how many elements we want to delete from star index, elements to add. 
+// table.splice(1, 0, { id: "48", name: "Barry", occupation: "Runner", age: "25" })
+// console.log(table);
+
+// Add the following object to the end of the array:
+// { id: "7", name: "Bilbo", occupation: "None", age: "111" }
+
+// table.push({ id: "7", name: "Bilbo", occupation: "None", age: "111" });
+// console.log(table);
+
+// Finally, use the values of each object within the array and the array’s length property to calculate
+// the average age of the group. This calculation should be accomplished using a loop.
+
+// let ageTotal = 0;
+
+// for (const index in table){
+//     // adding the + in fron of the age value, we convert it from string to number
+//     ageTotal += +table[index].age;
+// }
+
+// let ageAvg = (ageTotal / table.length).toFixed();
+// console.log(`Average age of the group: ${ageAvg}`);
+
+// Part 5: Full Circle
+// As a final task, transform the final set of data back into CSV format.
+
+
+
+
+
