@@ -278,7 +278,7 @@
 // Since the heading for each column will be stored in the object keys, you do not need to create an object for the heading row itself.
 
 
-let csv = `ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s,26`
+let csv = "ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s,26"
 // convert the string into an array. By passyng the delimited "\n" we can separate each row in a array element
 let rows = csv.split("\n");
 
@@ -305,7 +305,7 @@ for (let i = 1; i < rows.length; i++) {
 console.log(table)
 
 
-//     Part 4: Sorting and Manipulating Data
+//Part 4: Sorting and Manipulating Data
 // Using array methods, accomplish the following tasks, in order upon the result of Part 3:
 // _________________________________________________________________
 
@@ -350,4 +350,39 @@ console.log(table)
 
 
 
+// Get the key name of each value of the object
+let keys = Object.keys(table[0]);
+let newCsv = "";
 
+// Original string reference
+// ID,Name,Occupation,Age\n42,Bruce,Knight,41\n57,Bob,Fry Cook,19\n63,Blaine,Quiz Master,58\n98,Bill,Doctor’s Assistant,26
+
+//Append the keys to the newCsv string
+for (const k in table) {
+    // Capitalize the first letter of the word using index 0
+    // Slice from index 1 and append the rest of the word in lower case
+    // Include a comma at the end of each word
+    if ( k == 0){ // Capitalize ID 
+    newCsv += keys[k].toUpperCase() + ",";
+    }
+    else if( k == table.length -1 ){ // Don't add the comma to the last word 
+        newCsv += keys[k].charAt(0).toUpperCase() + keys[k].slice(1);
+    }
+    else{
+        newCsv += keys[k].charAt(0).toUpperCase() + keys[k].slice(1) + ",";    
+    }
+}
+
+for (const l in table){
+    newCsv += "\n" + table[l].id + ",";
+    newCsv += table[l].name + ",";
+    newCsv += table[l].occupation + ",";
+    newCsv += table[l].age;
+
+
+}
+console.log(newCsv)
+console.log(" ")
+console.log(csv)
+//Check if csv and newCsv are equals
+console.log(csv === newCsv)
